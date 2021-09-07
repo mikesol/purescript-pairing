@@ -14,9 +14,6 @@ import Data.Traversable (class Traversable)
 newtype MessengerT :: forall k. Type -> Type -> (k -> Type) -> k -> Type
 newtype MessengerT e b w a = MessengerT (EnvT (e -> b) w a)
 
-newtype MessengerFlipped :: forall k. Type -> (k -> Type) -> Type -> k -> Type
-newtype MessengerFlipped e w b a = MessengerFlipped (MessengerT e b w a)
-
 derive instance newtypeMessengerT :: Newtype (MessengerT e b w a) _
 
 derive newtype instance functorMessengerT :: Functor w => Functor (MessengerT e b w)
@@ -32,17 +29,3 @@ derive newtype instance foldableMessengerT :: Foldable f => Foldable (MessengerT
 derive newtype instance traversableMessengerT :: Traversable f => Traversable (MessengerT e b f)
 
 derive newtype instance comonadAskMessengerT :: Comonad w => ComonadAsk (e -> b) (MessengerT e b w)
-
-derive instance newtypeMessengerFlipped :: Newtype (MessengerFlipped e w b a) _
-
-derive newtype instance functorMessengerFlipped :: Functor w => Functor (MessengerFlipped e w b)
-
-derive newtype instance extendMessengerFlipped :: Extend w => Extend (MessengerFlipped e w b)
-
-derive newtype instance comonadMessengerFlipped :: Comonad w => Comonad (MessengerFlipped e w b)
-
-derive newtype instance foldableMessengerFlipped :: Foldable f => Foldable (MessengerFlipped e f b)
-
-derive newtype instance traversableMessengerFlipped :: Traversable f => Traversable (MessengerFlipped e f b)
-
-derive newtype instance comonadAskMessengerFlipped :: Comonad w => ComonadAsk (e -> b) (MessengerFlipped e w b)
