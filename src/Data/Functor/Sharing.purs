@@ -15,7 +15,7 @@ import Control.Comonad.Env (EnvT(..))
 import Control.Comonad.MessengerT (MessengerT(..))
 import Control.Monad.Except (ExceptT, runExceptT)
 import Data.Either (Either(..))
-import Data.Functor.Flipped (Flipped(..))
+import Data.Functor.Flipped (Flipped)
 import Data.Functor.Pairing (type (⋈))
 import Data.Functor.Ungrateful (Ungrateful(..))
 import Data.Identity (Identity(..))
@@ -41,7 +41,7 @@ toPairing :: forall f g. Ungrateful f 🤗 Ungrateful g -> f ⋈ g
 toPairing pairing f fx gx = pairing f (Ungrateful fx) (Ungrateful gx)
 
 exceptMessenger :: forall e f g. f ⋈ g -> Ungrateful (ExceptT e f) 🤗 Flipped MessengerT e g
-exceptMessenger pairing f (Ungrateful e) (Flipped (MessengerT (EnvT (Tuple handler gb)))) =
+exceptMessenger pairing f (Ungrateful e) (MessengerT (EnvT (Tuple handler gb))) =
   pairing
     ( \a b -> f
         ( case a of
