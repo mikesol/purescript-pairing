@@ -31,9 +31,9 @@ identityFunction :: Ungrateful Identity 🤗 Function
 identityFunction f (Ungrateful (Identity a)) aToB = f a (aToB a)
 
 functionIdentity :: Function 🤗 Ungrateful Identity
-functionIdentity f  bToA (Ungrateful (Identity b)) = f (bToA b) b
+functionIdentity f bToA (Ungrateful (Identity b)) = f (bToA b) b
 
-fromPairing:: forall f g. f ⋈ g -> Ungrateful f 🤗 Ungrateful g
+fromPairing :: forall f g. f ⋈ g -> Ungrateful f 🤗 Ungrateful g
 fromPairing pairing f (Ungrateful fx) (Ungrateful gx) = pairing f fx gx
 
 toPairing :: forall f g. Ungrateful f 🤗 Ungrateful g -> f ⋈ g
